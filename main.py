@@ -4,7 +4,8 @@ import time
 from bs4 import BeautifulSoup
 import logging
 
-DURATION_SECONDS = 30
+DURATION_SECONDS = 300
+
 logging.basicConfig(level=logging.INFO)
 
 def main():
