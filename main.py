@@ -12,7 +12,6 @@ def main():
     ccb = CCBot()
     ccb.start()
     ccb.select_language()
-    # TODO: Start timing here
     t = Timer(DURATION_SECONDS)
     multiplier = 1
     while True:
@@ -26,10 +25,9 @@ def main():
         for i in range(6):
             ccb.buy_nth_product(5-i)
         multiplier *= 1.05
-    # TODO: End timing here
     ccb.save_page_source()
     ccb.get_total_cookies()
-    time.sleep(10)
+    time.sleep(5)
     ccb.end()
 
 class Timer:
