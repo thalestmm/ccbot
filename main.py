@@ -1,11 +1,14 @@
+# Core functionalities
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
+# Administrative tasks
 import logging
 import time
 import yaml
+import os
 
 logging.basicConfig(level=logging.INFO)
 
@@ -36,7 +39,7 @@ def main():
     ccb.save_page_source()
     ccb.get_total_cookies()
     time.sleep(5)
-    ccb.end()
+    ccb.end(DURATION_SECONDS)
 
 class Timer:
     def __init__(self, time_seconds: int):
@@ -55,10 +58,15 @@ class CCBot:
     def start(self):
         self.driver.get(self.url)
 
-    def end(self):
+    def end(self, duration_seconds: int):
         self.driver.quit()
         logging.info(f" Total cookies: {self.total_cookies}")
-        logging.info(f" Run duration: {DURATION_SECONDS} seconds")
+        logging.info(f" Run duration: {duration_seconds} seconds")
+        try:
+            os.remove("page_source.html")
+        finally:
+            logging.info(" Temp files removed")
+
 
     def select_language(self):
         time.sleep(5)
