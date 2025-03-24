@@ -1,17 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
-import logging
 
-DURATION_SECONDS = 300
+import logging
+import time
+import yaml
 
 logging.basicConfig(level=logging.INFO)
 
 def main():
+    with open('config.yaml', 'r') as stream:
+        data = yaml.safe_load(stream)
+
+    DURATION_SECONDS = data['DURATION_SECONDS']
+    BAKERY_NAME = data['BAKERY_NAME']
+
     ccb = CCBot()
     ccb.start()
     ccb.select_language()
+    ccb.rename_shop(BAKERY_NAME)
     t = Timer(DURATION_SECONDS)
     multiplier = 1
     while True:
@@ -77,6 +85,16 @@ class CCBot:
             element.click()
         except:
             pass
+
+    def rename_shop(self, bakery_name: str) -> None:
+        element = self.driver.find_element(By.ID, "bakeryName")
+        element.click()
+        time.sleep(0.1)
+        input_box = self.driver.find_element(By.ID, "bakeryNameInput")
+        input_box.send_keys(f"{bakery_name}")
+        input_box.send_keys(Keys.ENTER)
+        logging.info(f" Bakery renamed to: {bakery_name}")
+        time.sleep(0.1)
 
     # Information
 
