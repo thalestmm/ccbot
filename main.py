@@ -33,8 +33,8 @@ def main():
         if time.time() >= t.end_time:
             break
         ccb.buy_nth_upgrade(0)
-        for i in range(6):
-            ccb.buy_nth_product(5-i)
+        for i in range(10):
+            ccb.buy_nth_product(9-i)
         multiplier *= 1.05
     ccb.save_page_source()
     ccb.get_total_cookies()
