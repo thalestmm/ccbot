@@ -20,3 +20,5 @@ python main.py
 The default duration is set to 5 minutes (300 seconds), but you can change it in the `config.yaml` file.
 
 The final result will be displayed in the `stdout` as an INFO log.
+
+Highest recorded score: **53,042**.
